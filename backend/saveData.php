@@ -19,7 +19,7 @@ if (!file_exists($directory)) {
     mkdir($directory, 0777, true);
 }
 
-$fileName = 'PreInscription.csv';
+$fileName = 'PreInscription'.$date_jpo.'.csv';
 $filePath = $directory . '/' . $fileName;
 
 $csvFile = fopen($filePath, 'a');
