@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
+$date_jpo = date("Y-m-d");
 
 $directory = __DIR__ . '/csvFiles';
 
@@ -40,6 +41,7 @@ $dataRow = [
     $data['telephone'],
     $data['email'],
     $data['formation'],
+    $date_jpo,
     implode('|', $data['options1']),
     implode('|', $data['options2'])
 ];
