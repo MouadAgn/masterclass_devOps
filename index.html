@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'inscription</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+<body>
+    <header>
+        <img src="./styles/ipssi-logo.png" alt="Logo" class="logo">
+        <h1>Formulaire d'inscription</h1>
+    </header>
+
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="nom">Nom:</label>
+            <input type="text" id="nom" name="nom" required>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom:</label>
+            <input type="text" id="prenom" name="prenom" required>
+        </div>
+        <div class="form-group">
+            <label for="telephone">Téléphone:</label>
+            <input type="tel" id="telephone" name="telephone" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="formation">Dernière formation suivie ou cursus en cours:</label>
+            <textarea id="formation" name="formation" required></textarea>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <label>Je suis intéressé(e) par:</label>
+            <div class="checkbox-group">
+                <h4>Bac +2</h4>
+                <label><input type="checkbox" name="options1[]" value="BTS SIO"> BTS SIO</label>
+                <label><input type="checkbox" name="options1[]" value="BTC"> BTC</label>
+
+                <h4>Bac +3</h4>
+                <label><input type="checkbox" name="options1[]" value="BD"> Bachelor développement fullstack & devops</label>
+                <label><input type="checkbox" name="options1[]" value="BA"> Bachelor admin réseau, secops</label>
+
+
+                <h4>Bac +5</h4>
+                <label><input type="checkbox" name="options1[]" value="MIA"> Master IA et big data</label>
+                <label><input type="checkbox" name="options1[]" value="MCS"> Master Cybersécurité</label>
+                <label><input type="checkbox" name="options1[]" value="MWB"> Master Web3 et blockchain</label>
+            </div>
+        </div>
+        <hr/>
+
+        <div class="form-group">
+            <label>J'ai connu l'ipssi grâce:</label>
+            <br/>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="options2[]" value="Réseaux sociaux"> Réseaux sociaux </label>
+                <label><input type="checkbox" name="options2[]" value="Entourage"> Entourage</label>
+                <label><input type="checkbox" name="options2[]" value="Salon/Forum"> Salon/Forum</label>
+                <label><input type="checkbox" name="options2[]" value="Bouche à oreille"> Bouche à oreille</label>
+                <label><input type="checkbox" name="options2[]" value="autres"> autres</label>
+            </div>
+        </div>
+        <hr/>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="accepte" name="accepte" required>
+                Je consens à la conservation et à l'utilisation de mes données.
+            </label>
+        </div>
+        <button type="submit">Soumettre</button>
+    </form>
+
+    <script src="app.js"></script>
+</body>
+</html>
