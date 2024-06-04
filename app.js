@@ -23,7 +23,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
                 options2
             };
 
-            const response = await fetch('http://localhost:8001/saveData.php', {
+            const response = await fetch('http://localhost:8080/backend/saveData.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
