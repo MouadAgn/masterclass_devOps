@@ -1,0 +1,19 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo "Building the Docker image..."
+    - docker build -t monprojetweb .
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying the Docker container..."
+    - docker run -d -p 80:80 --name monprojetweb_container monprojetweb
+  only:
+    - main
