@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  projet-jpo:
+    image: registry.gitlab.com/mouadagn/masterclass_devops/projet-jpo:latest
+    ports:
+      - "80:80"
