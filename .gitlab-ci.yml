@@ -21,7 +21,7 @@ build:
     - docker rmi projet-jpo || true
     - echo "Construction de l'image projet-jpo en cours..."
     - docker build -t projet-jpo .
-    - docker push registry.gitlab.com/MouadAgn/projet-jpo:latest
+    - docker push registry.gitlab.com/mouadagn/projet-jpo:latest
   artifacts:
     paths:
       - /app/logs/build.log
