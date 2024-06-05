@@ -32,7 +32,7 @@ deploy:
     - docker stop projet-jpo || true
     - docker rm projet-jpo || true
     - echo "Démarrage du conteneur projet-jpo en cours..."
-    - docker run -d -p 80:80 registry.gitlab.com/mouadagn/projet-jpo:latest
+    - docker run -d -p 80:80 projet-jpo
   artifacts:
     paths:
       - /app/logs/deploy.log
