@@ -8,6 +8,7 @@ variables:
 
 stages:
   - build
+  - tests
   - deploy
 
 before_script:
@@ -16,20 +17,37 @@ before_script:
 build:
   stage: build
   script:
-    - echo "Logging in to Docker registry..."
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY || (echo "Docker login failed" && exit 1)
-    - docker rmi projet-jpo:latest || true
     - echo "Construction de l'image projet-jpo en cours..."
-    - docker build -t projet-jpo .
-    - docker run -d -p 80:80 projet-jpo
+    - docker build -t projet-jpo:latest .
+    - echo "Logging in to Docker registry..."
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker tag projet-jpo:latest registry.gitlab.com/MouadAgn/masterclass_devOps/projet-jpo:latest
+    - docker push registry.gitlab.com/MouadAgn/masterclass_devOps/projet-jpo:latest
+
   artifacts:
     paths:
       - /app/logs/build.log
+  only:
+    - main
+
+tests:
+  stage: tests
+  script:
+    - docker-compose -f docker-compose.yml up --exit-code-from tests
+  artifacts:
+    paths:
+      - /app/logs/tests.log
+  only:
+   - main
 
 deploy:
   stage: deploy
   script:
-    - echo "Tests"
+    - docker-compose down || true
+    - docker-compose pull
+    - docker-compose up -d
   artifacts:
     paths:
       - /app/logs/deploy.log
+    only:
+      - main
