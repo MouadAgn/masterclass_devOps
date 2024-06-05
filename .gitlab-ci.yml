@@ -16,12 +16,11 @@ before_script:
 build:
   stage: build
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo "Logging in to Docker registry..."
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY || (echo "Docker login failed" && exit 1)
     - docker rmi projet-jpo || true
     - echo "Construction de l'image projet-jpo en cours..."
     - docker build -t projet-jpo .
-    - docker tag projet-jpo:latest registry.gitlab.com/mouadagn/projet-jpo:latest
-    - docker push registry.gitlab.com/mouadagn/projet-jpo:latest
   artifacts:
     paths:
       - /app/logs/build.log
