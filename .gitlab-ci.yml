@@ -1,19 +1,15 @@
-stages:
-  - build
-  - deploy
+# stages:
+#   - build
+#   - deploy
 
-build:
-  stage: build
-  script:
-    - echo "Building the Docker image..."
-    - docker build -t monprojetweb .
-  only:
-    - main
+# build:
+#   stage: build
+#   script:
+#     - docker build -t jpo-ipssi .
 
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploying the Docker container..."
-    - docker run -d -p 80:80 --name monprojetweb_container monprojetweb
-  only:
-    - main
+# deploy:
+#   stage: deploy
+#   script:
+#     - docker-compose up -d
+#   only:
+#     - main
