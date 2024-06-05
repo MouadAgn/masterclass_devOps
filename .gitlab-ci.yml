@@ -30,7 +30,7 @@ build:
 tests:
   stage: tests
   script:
-    - docker-compose -f docker-compose.yml up --exit-code-from tests
+    - docker-compose -f docker/docker-compose.yml up --exit-code-from tests
   artifacts:
     paths:
       - /app/logs/tests.log
