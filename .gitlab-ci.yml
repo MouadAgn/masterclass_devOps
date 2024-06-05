@@ -18,11 +18,11 @@ build:
   script:
     - >
       if docker images -q projet-jpo:latest 2>/dev/null; then
-        echo "L'image projet-jpo:latest est déjà présente."
-      else
-        echo "Construction de l'image projet-jpo:latest en cours..."
-        docker build -t projet-jpo .
+        echo "Suppression de l'image projet-jpo:latest..."
+        docker rmi projet-jpo:latest
       fi
+    - echo "Construction de l'image projet-jpo:latest en cours..."
+    - docker build -t projet-jpo .
   artifacts:
     paths:
       - /app/logs/build.log
@@ -32,14 +32,13 @@ deploy:
   script:
     - >
       if docker ps -q -f name=projet-jpo 2>/dev/null; then
-        echo "Le conteneur projet-jpo est déjà en cours d'exécution."
-      else
-        echo "Démarrage du conteneur projet-jpo en cours..."
-        docker run -d -p 80:80 --name projet-jpo projet-jpo
+        echo "Arrêt du conteneur projet-jpo..."
+        docker stop projet-jpo
+        echo "Suppression du conteneur projet-jpo..."
+        docker rm projet-jpo
       fi
-  after_script:
-    - docker ps -a
-    - docker system prune -f
+    - echo "Démarrage du conteneur projet-jpo en cours..."
+    - docker run -d -p 80:80 --name projet-jpo projet-jpo
   artifacts:
     paths:
       - /app/logs/deploy.log
