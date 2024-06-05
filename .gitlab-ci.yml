@@ -1,0 +1,15 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t mon-projet-web .
+
+deploy:
+  stage: deploy
+  script:
+    - docker run -d -p 80:80 mon-projet-web
+  only:
+    - mouadbranch
