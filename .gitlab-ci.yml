@@ -17,11 +17,11 @@ build:
   stage: build
   script:
     - >
-      if ! docker images -q projet-jpo:latest 2>/dev/null; then
-        echo "L'image projet-jpo:latest n'existe pas."
-      else
+      if docker images -q projet-jpo:latest 2>/dev/null; then
         echo "Suppression de l'image projet-jpo:latest..."
         docker rmi projet-jpo:latest
+      else
+        echo "L'image projet-jpo:latest n'existe pas, pas besoin de la supprimer."
       fi
     - echo "Construction de l'image projet-jpo:latest en cours..."
     - docker build -t projet-jpo .
