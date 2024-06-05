@@ -16,8 +16,8 @@ before_script:
 build:
   stage: build
   script:
-    - docker rmi projet-jpo:latest || true
-    - echo "Construction de l'image projet-jpo:latest en cours..."
+    - docker rmi projet-jpo || true
+    - echo "Construction de l'image projet-jpo en cours..."
     - docker build -t projet-jpo .
   artifacts:
     paths:
