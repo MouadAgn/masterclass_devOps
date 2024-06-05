@@ -1,15 +1,15 @@
-# stages:
-#   - build
-#   - deploy
+stages:
+  - build
+  - deploy
 
-# build:
-#   stage: build
-#   script:
-#     - docker build -t jpo-ipssi .
+build:
+  stage: build
+  script:
+    - docker build -t mon-projet-web .
 
-# deploy:
-#   stage: deploy
-#   script:
-#     - docker-compose up -d
-#   only:
-#     - main
+deploy:
+  stage: deploy
+  script:
+    - docker run -d -p 80:80 mon-projet-web
+  only:
+    - mouadbranch
