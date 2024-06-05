@@ -11,6 +11,8 @@
         <img src="./styles/ipssi-logo.png" alt="Logo" class="logo">
         <h1>Formulaire d'inscription</h1>
     </header>
+    
+    <div> <a href = "./csvdownload.php">Liste des fichiers csv</a></div>
 
     <form id="registrationForm">
         <div class="form-group">
@@ -80,23 +82,3 @@
 </body>
 </html>
 
-
-<table>
-<tr>
-    <td>Header 1</td>
-    <td>Header 2</td>
-</tr>
-<?php
-    $fp = fopen ( "file.csv" , "r" );
-    while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
-        $i = 0;
-        echo "<tr>";
-        foreach($data as $row) {
-           echo "<td>" . $row . "</td>";
-           $i++ ;
-        }
-        echo "/<tr>";
-    }
-    fclose ( $fp );
-    ?>
-</table>
