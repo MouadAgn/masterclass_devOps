@@ -26,13 +26,8 @@ build:
 deploy:
   stage: deploy
   script:
-    - >
-      if docker ps -q -f name=projet-jpo 2>/dev/null; then
-        echo "Arrêt du conteneur projet-jpo..."
-        docker stop projet-jpo
-        echo "Suppression du conteneur projet-jpo..."
-        docker rm projet-jpo
-      fi
+    - docker stop projet-jpo || true
+    - docker rm projet-jpo || true
     - echo "Démarrage du conteneur projet-jpo en cours..."
     - docker run -d -p 80:80 --name projet-jpo projet-jpo
   artifacts:
