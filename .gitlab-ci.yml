@@ -26,8 +26,6 @@ build:
   artifacts:
     paths:
       - /app/logs/build.log
-  only:
-    - main
 
 tests:
   stage: tests
@@ -36,8 +34,6 @@ tests:
   artifacts:
     paths:
       - /app/logs/tests.log
-  only:
-    - main
 
 deploy:
   stage: deploy
@@ -48,5 +44,3 @@ deploy:
   artifacts:
     paths:
       - /app/logs/deploy.log
-  only:
-    - main
