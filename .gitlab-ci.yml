@@ -16,10 +16,10 @@ before_script:
 build:
   stage: build
   script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker rmi projet-jpo || true
     - echo "Construction de l'image projet-jpo en cours..."
     - docker build -t projet-jpo .
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   artifacts:
     paths:
       - /app/logs/build.log
@@ -27,6 +27,7 @@ build:
 deploy:
   stage: deploy
   script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker stop projet-jpo || true
     - docker rm projet-jpo || true
     - echo "Démarrage du conteneur projet-jpo en cours..."
