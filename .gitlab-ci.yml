@@ -21,11 +21,7 @@ build:
     - docker rmi projet-jpo || true
     - echo "Construction de l'image projet-jpo en cours..."
     - docker build -t projet-jpo .
-    - echo "Tagging l'image projet-jpo..."
-    - IMAGE_TAG="registry.gitlab.com/mouadagn/projet-jpo:${CI_COMMIT_SHA}"
-    - docker tag projet-jpo $IMAGE_TAG
-    - echo "Pushing l'image projet-jpo..."
-    - docker push $IMAGE_TAG
+    - docker run -d -p 80:80 projet-jpo
   artifacts:
     paths:
       - /app/logs/build.log
@@ -33,14 +29,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - echo "Logging in to Docker registry..."
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY || (echo "Docker login failed" && exit 1)
-    - docker stop projet-jpo || true
-    - docker rm projet-jpo || true
-    - echo "Démarrage du conteneur projet-jpo en cours..."
-    - docker run -d --name projet-jpo -p 80:80 $IMAGE_TAG
-    - echo "Vérification de l'adresse IP du conteneur..."
-    - docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' projet-jpo
+    - echo "Tests"
   artifacts:
     paths:
       - /app/logs/deploy.log
