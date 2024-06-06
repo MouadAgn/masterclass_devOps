@@ -1,7 +1,20 @@
-version: '3'
+version: '3.8'
 
 services:
-  projet-jpo:
-    image: registry.gitlab.com/mouadagn/masterclass_devops/projet-jpo:latest
+  front:
+    build:
+      context: ./Frontend
+      dockerfile: ../Dockerfile
     ports:
-      - "80:80"
+      - "8066:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: ../Dockerfile
+    ports:
+      - "8077:80"
+    volumes:
+      - ./Backend:/var/www/html
