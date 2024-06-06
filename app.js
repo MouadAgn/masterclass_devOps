@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     options2
                 };
 
-                const response = await fetch('http://localhost:8001/saveData.php', {
+                console.log(newData); // Point de débogage
+
+                const response = await fetch('http://127.0.0.1/saveData.php', { // Utilisez le port 80
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -33,13 +35,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify(newData)
                 });
 
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
                 const responseData = await response.json();
-            
                 document.getElementById('registrationForm').reset();
                 alert('Données enregistrées avec succès');
             } catch (error) {
                 console.error('Erreur lors de la soumission des données:', error);
-                alert('Erreur lors de la soumission des données');
+                alert('Erreur lors de la soumission des données: ' + error.message);
             }
         } else {
             alert('Veuillez accepter la conservation et l\'utilisation de vos données.');
