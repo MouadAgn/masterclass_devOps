@@ -29,7 +29,7 @@ if ($csvFile === false) {
     exit();
 }
 
-$headers = ['Nom', 'Prénom', 'Téléphone', 'Email', 'Formation', 'interessé par', "j'ai connu l'ipssi grâce"];
+$headers = ['Nom', 'Prénom', 'Téléphone', 'Email', 'Formation', 'interessé par', "j'ai connu l'ipssi grâce", 'Date JPO'];
 if (filesize($filePath) === 0) {
     fputcsv($csvFile, $headers);
 }
@@ -41,7 +41,8 @@ $dataRow = [
     $data['email'],
     $data['formation'],
     implode('|', $data['options1']),
-    implode('|', $data['options2'])
+    implode('|', $data['options2']),
+    date('Y-m-d') // Ajout de la date de la JPO
 ];
 
 fputcsv($csvFile, $dataRow);
