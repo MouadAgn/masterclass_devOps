@@ -1,7 +1,53 @@
 const fs = require('fs');
-const { addDataToCSV } = require('./app'); // Assurez-vous que la fonction est exportée dans app.js
+const path = require('path');
+const { addJPODate, addDataToCSV } = require('./app'); // Assurez-vous que la fonction est exportée dans app.js
+
+describe('addJPODate', () => {
+    afterEach(() => {
+        jest.restoreAllMocks(); // Restaurez tous les espions après chaque test
+    });
+
+    it('should throw an error if date is empty', () => {
+        expect(() => {
+            addJPODate('');
+        }).toThrow('Date cannot be empty');
+    });
+
+    it('should throw an error if date format is invalid', () => {
+        expect(() => {
+            addJPODate('20240607');
+        }).toThrow('Invalid date format, expected YYYY-MM-DD');
+    });
+
+    it('should throw an error if date is not in the future', () => {
+        const pastDate = new Date();
+        pastDate.setDate(pastDate.getDate() - 1); // Date passée
+        const pastDateString = pastDate.toISOString().split('T')[0];
+        expect(() => {
+            addJPODate(pastDateString);
+        }).toThrow('Date must be a future date');
+    });
+
+    it('should write date to CSV if date is valid and in the future', () => {
+        const futureDate = new Date();
+        futureDate.setDate(futureDate.getDate() + 10); // Date future
+        const futureDateString = futureDate.toISOString().split('T')[0];
+        const mockCSV = `JPO Date,${futureDateString}\n`;
+
+        const writeFileSpy = jest.spyOn(fs, 'appendFileSync').mockImplementation(() => {});
+
+        addJPODate(futureDateString);
+
+        expect(writeFileSpy).toHaveBeenCalledWith(path.join(__dirname, 'jpo_dates.csv'), mockCSV);
+        writeFileSpy.mockRestore();
+    });
+});
 
 describe('addDataToCSV', () => {
+    afterEach(() => {
+        jest.restoreAllMocks(); // Restaurez tous les espions après chaque test
+    });
+
     it('should throw an error if inputs are empty', () => {
         expect(() => {
             addDataToCSV('', '', '', '');
@@ -39,7 +85,7 @@ describe('addDataToCSV', () => {
 
         addDataToCSV(...mockData);
 
-        expect(writeFileSpy).toHaveBeenCalledWith(expect.any(String), mockCSV);
+        expect(writeFileSpy).toHaveBeenCalledWith(path.join(__dirname, 'data.csv'), mockCSV);
         writeFileSpy.mockRestore();
     });
 });
