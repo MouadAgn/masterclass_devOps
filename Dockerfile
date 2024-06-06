@@ -1,19 +1,20 @@
-# Utiliser une image de base Ubuntu
+# Utiliser une image Ubuntu comme base
 FROM ubuntu:latest
 
-# Mettre à jour les paquets et installer les dépendances nécessaires
+# Installer les dépendances nécessaires
 RUN apt-get update && apt-get install -y \
     apache2 \
     php \
     libapache2-mod-php \
     php-mysql \
+    php-xml \
     && apt-get clean
 
-# Copier les fichiers du projet dans le répertoire par défaut de l'apache
+# Copier le projet dans le conteneur
 COPY . /var/www/html/
 
-# Exposer le port 80 pour le serveur web
+# Exposer le port 80
 EXPOSE 80
 
-# Démarrer Apache en mode détaché
+# Démarrer Apache
 CMD ["apachectl", "-D", "FOREGROUND"]
