@@ -1,7 +1,40 @@
 stages:
+  - test
   - deploy
+
+variables:
+  NODE_ENV: 'test'
+
+before_script:
+  - apt-get update && apt-get install -y curl
+  - curl -sL https://deb.nodesource.com/setup_14.x | bash -
+  - apt-get install -y nodejs
+  - npm install
+
+test:
+  stage: test
+  script:
+    - npm install  
+    - npm test     
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+    paths:
+      - coverage/
+      - report.xml
+  allow_failure: false
 
 deploy:
   stage: deploy
   script:
-    - ./deploy.sh
+    - apt-get update && apt-get install -y openssh-client
+    - scp -r ./dist/ user@server:/path/to/deployment  
+    - ssh user@server 'cd /path/to/deployment && npm install && npm start'  
+  only:
+    - master
+  dependencies:
+    - test
+  when: manual
+  environment:
+    name: production
