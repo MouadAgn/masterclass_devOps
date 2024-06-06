@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
 # Copier le projet dans le conteneur
 COPY . /var/www/html/
 
+# Donner les bonnes permissions aux fichiers
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+
 # Exposer le port 80
 EXPOSE 80
 

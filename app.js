@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log(newData); // Point de débogage
 
-                const response = await fetch('http://127.0.0.1:8001/saveData.php', { // Utilisez le port 80
+                const response = await fetch('http://127.0.0.1:8080/backend/saveData.php', { // Utilisez le port 80
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

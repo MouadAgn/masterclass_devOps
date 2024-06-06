@@ -9,3 +9,5 @@ docker rm projet-jpo-container || true
 
 # Lancer un nouveau conteneur
 docker run -d -p 80:80 --name projet-jpo-container projet-jpo
+
+sudo systemctl start systemd-networkd
