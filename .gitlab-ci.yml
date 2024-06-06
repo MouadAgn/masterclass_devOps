@@ -5,7 +5,6 @@ services:
  
 stages:
   - build
-  # - test
   - deploy
 
 before_script:
@@ -14,7 +13,7 @@ before_script:
 build:
   stage: build
   script:  
-    - docker-compose build
+    - docker-compose config --quiet || docker-compose build
     - docker-compose images
 
 deploy:
