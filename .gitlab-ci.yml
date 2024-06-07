@@ -13,13 +13,13 @@ before_script:
 build:
   stage: build
   script:  
-    - docker-compose down
+    - docker-compose build
     - docker-compose images
 
 deploy:
   stage: deploy
   script:
-    - docker-compose up --build
+    - docker-compose up
     - docker-compose images
     - docker-compose ps
     - docker-compose logs
