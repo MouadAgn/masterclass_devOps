@@ -1,8 +1,8 @@
 services:
   front:
     build:
-      context: ./Frontend
-      dockerfile: ../Dockerfile
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8066:80"
     depends_on:
@@ -10,8 +10,8 @@ services:
 
   backend:
     build:
-      context: ./Backend
-      dockerfile: ../Dockerfile
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8077:80"
     volumes:
