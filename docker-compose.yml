@@ -1,9 +1,18 @@
-version: '3'
 services:
-  web:
-    build: .
+  front:
+    build:
+      context: ./Frontend
+      dockerfile: ../Dockerfile
     ports:
-      - "8080:80"
-    volumes:
-      - .:/var/www/html/
+      - "8066:80"
+    depends_on:
+      - backend
 
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: ../Dockerfile
+    ports:
+      - "8077:80"
+    volumes:
+      - ./Backend:/var/www/html

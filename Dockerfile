@@ -1,23 +1,15 @@
-# Utiliser une image Ubuntu comme base
-FROM ubuntu:latest
+FROM php:apache
 
-# Installer les dépendances nécessaires
-RUN apt-get update && apt-get install -y \
-    apache2 \
-    php \
-    libapache2-mod-php \
-    php-mysql \
-    php-xml \
-    && apt-get clean
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copier le projet dans le conteneur
-COPY . /var/www/html/
+# pour copier les fichiers du projet
+COPY . /var/www/html/ 
 
-# Donner les bonnes permissions aux fichiers
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+# WORKDIR /var/www/html/
+# RUN composer install
 
-# Exposer le port 80
+# RUN ./vendor/bin/phpunit --bootstrap vendor/autoload.php Tests > log.txt || true
+
 EXPOSE 80
 
-# Démarrer Apache
-CMD ["apachectl", "-D", "FOREGROUND"]
+CMD ["apache2-foreground"]

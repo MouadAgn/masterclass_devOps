@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: application/json');
+
 if (isset($_GET['file'])) {
     $file = basename($_GET['file']);
     $filePath = __DIR__ . '/csvFiles/' . $file;

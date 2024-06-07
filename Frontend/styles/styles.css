@@ -9,8 +9,6 @@ body {
 header {
     display: flex;
     align-items: center;
-
-
     background-color: #150ed2;
     color: white;
     padding: 10px 20px;
@@ -26,7 +24,11 @@ h1 {
     margin: 0;
 }
 
-form, #fileList {
+h2 {
+    text-align: center;
+}
+
+form, #file-list {
     background: white;
     max-width: 600px;
     margin: 20px auto;
@@ -81,12 +83,12 @@ button:hover {
 }
 
 
-#fileList ul {
+#file-list ul {
     list-style-type: none;
     padding: 0;
 }
 
-#fileList li {
+#file-list li {
     background: #fff;
     padding: 10px;
     margin: 5px 0;
@@ -97,12 +99,12 @@ button:hover {
     align-items: center;
 }
 
-#fileList li a {
+#file-list li a {
     text-decoration: none;
     color: #150ed2;
 }
 
-#fileList li a:hover {
+#file-list li a:hover {
     text-decoration: underline;
 }
 
@@ -119,7 +121,7 @@ button:hover {
         margin-bottom: 10px;
     }
 
-    form, #fileList {
+    form, #file-list {
         margin: 10px;
         padding: 15px;
     }
@@ -136,4 +138,22 @@ button:hover {
     .checkbox-group label {
         font-size: 14px;
     }
+}
+
+table {
+    width: 80%;
+    margin-left: 10%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
 }

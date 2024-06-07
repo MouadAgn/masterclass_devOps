@@ -1,13 +1,4 @@
-#!/bin/bash
-
-# Construire l'image Docker
-docker build -t projet-jpo .
-
-# Arrêter et supprimer le conteneur existant s'il y en a un
-docker stop projet-jpo-container || true
-docker rm projet-jpo-container || true
-
-# Lancer un nouveau conteneur
-docker run -d -p 80:80 --name projet-jpo-container projet-jpo
-
-sudo systemctl start systemd-networkd
+docker-compose down
+docker rmi masterclass_devops-backend masterclass_devops-front
+docker-compose build
+docker-compose up -d

@@ -18,7 +18,8 @@ if (!file_exists($directory)) {
     mkdir($directory, 0777, true);
 }
 
-$fileName = 'PreInscription.csv';
+// Nom du fichier basé sur la date de la JPO
+$fileName = 'JPO_' . date('Y-m-d') . '.csv';
 $filePath = $directory . '/' . $fileName;
 
 $csvFile = fopen($filePath, 'a');
@@ -29,7 +30,7 @@ if ($csvFile === false) {
     exit();
 }
 
-$headers = ['Nom', 'Prénom', 'Téléphone', 'Email', 'Formation', 'interessé par', "j'ai connu l'ipssi grâce"];
+$headers = ['Nom', 'Prénom', 'Téléphone', 'Email', 'Formation', 'Intéressé par', "J'ai connu l'IPSSI grâce", 'Date JPO'];
 if (filesize($filePath) === 0) {
     fputcsv($csvFile, $headers);
 }
@@ -41,7 +42,8 @@ $dataRow = [
     $data['email'],
     $data['formation'],
     implode('|', $data['options1']),
-    implode('|', $data['options2'])
+    implode('|', $data['options2']),
+    date('Y-m-d')
 ];
 
 fputcsv($csvFile, $dataRow);
