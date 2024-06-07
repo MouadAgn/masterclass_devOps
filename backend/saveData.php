@@ -18,7 +18,8 @@ if (!file_exists($directory)) {
     mkdir($directory, 0777, true);
 }
 
-$fileName = 'PreInscription.csv';
+// Nom du fichier basé sur la date de la JPO
+$fileName = 'JPO_' . date('Y-m-d') . '.csv';
 $filePath = $directory . '/' . $fileName;
 
 $csvFile = fopen($filePath, 'a');
