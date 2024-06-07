@@ -24,13 +24,6 @@ test:
   script:
     - npm install  
     - npm test     
-  artifacts:
-    when: always
-    reports:
-      junit: report.xml
-    paths:
-      - coverage/
-      - report.xml
   allow_failure: false
 
 deploy:
@@ -44,7 +37,7 @@ deploy:
     - docker ps
     - docker ps -a
   only:
-    - master
+    - main
   dependencies:
     - test
   when: manual
