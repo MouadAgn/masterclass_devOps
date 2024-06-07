@@ -9,6 +9,15 @@ COPY . /var/www/html/
 # RUN composer install
 
 # RUN ./vendor/bin/phpunit --bootstrap vendor/autoload.php Tests > log.txt || true
+RUN apt-get update \
+    && apt-get install -y curl \
+    && apt-get install -y sudo \
+    && apt-get clean
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN node -v
+RUN npm -v
+
 
 EXPOSE 80
 
