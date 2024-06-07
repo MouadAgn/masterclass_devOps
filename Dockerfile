@@ -14,7 +14,7 @@ RUN apt-get update \
     && apt-get install -y sudo \
     && apt-get clean
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-RUN sudo apt-get install -y nodejs
+RUN sudo apt-get install -y npm
 RUN node -v
 RUN npm -v
 
