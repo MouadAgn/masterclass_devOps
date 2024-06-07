@@ -14,9 +14,7 @@ before_script:
 
 build:
   stage: build
-  script:  
-    - apk update && apk add nodejs npm
-    - npm install 
+  script:   
     # - docker-compose down
     # - docker rmi masterclass_devops-backend masterclass_devops-front
     - docker-compose images
@@ -24,6 +22,8 @@ build:
 test:
   stage: test
   script: 
+    - apk update && apk add nodejs npm
+    - npm install
     - npm test     
   allow_failure: false
 
