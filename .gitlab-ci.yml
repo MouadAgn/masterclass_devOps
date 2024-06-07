@@ -37,11 +37,8 @@ deploy:
     - docker-compose logs
     - docker ps
     - docker ps -a
-  only:
-    - main
   dependencies:
     - test
-  when: manual
   environment:
     name: production
 image: docker:latest
