@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(files => {
         const fileList = document.getElementById('file-list');
         files.forEach(file => {
-            console.log(file);
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.href = "#";
@@ -93,6 +92,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         table.classList.add('styled-table'); // Ajout de la classe CSS
                         document.getElementById('file-content').innerHTML = '';
                         document.getElementById('file-content').appendChild(table);
+
+                        // Afficher le bouton de téléchargement en Excel
+                        document.getElementById('download-excel').style.display = 'block';
+                        document.getElementById('download-excel').onclick = function() {
+                            downloadExcel(dataArray, headers, file);
+                        };
                     });
             });
             li.appendChild(a);
@@ -101,4 +106,12 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => console.error('Erreur lors de la récupération des fichiers:', error));
 
+    function downloadExcel(dataArray, headers, filename) {
+        const ws_data = [headers, ...dataArray];
+        const ws = XLSX.utils.aoa_to_sheet(ws_data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, filename.replace('.csv', '') + ".xlsx");
+    }
 });
+
