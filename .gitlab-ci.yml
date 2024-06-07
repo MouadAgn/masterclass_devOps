@@ -15,6 +15,8 @@ before_script:
 build:
   stage: build
   script:  
+    - apt-get update && apt-get install -y nodejs npm
+    - npm install  
     # - docker-compose down
     # - docker rmi masterclass_devops-backend masterclass_devops-front
     - docker-compose images
@@ -22,7 +24,6 @@ build:
 test:
   stage: test
   script:
-    - npm install  
     - npm test     
   allow_failure: false
 
