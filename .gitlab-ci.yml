@@ -1,6 +1,10 @@
 stages:
+  - build
   - test
   - deploy
+
+services:
+  - docker:dind
 
 variables:
   NODE_ENV: 'test'
@@ -10,6 +14,14 @@ before_script:
   - curl -sL https://deb.nodesource.com/setup_14.x | bash -
   - apt-get install -y nodejs
   - npm install
+  - docker info
+
+build:
+  stage: build
+  script:  
+    # - docker-compose down
+    # - docker rmi masterclass_devops-backend masterclass_devops-front
+    - docker-compose images
 
 test:
   stage: test
@@ -31,6 +43,13 @@ deploy:
     - apt-get update && apt-get install -y openssh-client
     - scp -r ./dist/ user@server:/path/to/deployment  
     - ssh user@server 'cd /path/to/deployment && npm install && npm start'  
+    # - docker-compose build
+    # - docker-compose up -d
+    - docker-compose images
+    - docker-compose ps
+    - docker-compose logs
+    - docker ps
+    - docker ps -a
   only:
     - master
   dependencies:
@@ -40,30 +59,3 @@ deploy:
     name: production
 image: docker:latest
  
-services:
-  - docker:dind
- 
-stages:
-  - build
-  - deploy
-
-before_script:
-  - docker info
-
-build:
-  stage: build
-  script:  
-    # - docker-compose down
-    # - docker rmi masterclass_devops-backend masterclass_devops-front
-    - docker-compose images
-
-deploy:
-  stage: deploy
-  script:
-    # - docker-compose build
-    # - docker-compose up -d
-    - docker-compose images
-    - docker-compose ps
-    - docker-compose logs
-    - docker ps
-    - docker ps -a
