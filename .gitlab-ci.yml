@@ -10,10 +10,6 @@ variables:
   NODE_ENV: 'test'
 
 before_script:
-  - apt-get update && apt-get install -y curl
-  - curl -sL https://deb.nodesource.com/setup_14.x | bash -
-  - apt-get install -y nodejs
-  - npm install
   - docker info
 
 build:
@@ -40,9 +36,6 @@ test:
 deploy:
   stage: deploy
   script:
-    - apt-get update && apt-get install -y openssh-client
-    - scp -r ./dist/ user@server:/path/to/deployment  
-    - ssh user@server 'cd /path/to/deployment && npm install && npm start'  
     # - docker-compose build
     # - docker-compose up -d
     - docker-compose images
