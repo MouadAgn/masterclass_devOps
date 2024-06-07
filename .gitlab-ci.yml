@@ -13,15 +13,15 @@ before_script:
 build:
   stage: build
   script:  
-    - docker-compose down
-    - docker rmi masterclass_devops-backend masterclass_devops-front
+    # - docker-compose down
+    # - docker rmi masterclass_devops-backend masterclass_devops-front
     - docker-compose images
 
 deploy:
   stage: deploy
   script:
-    - docker-compose build
-    - docker-compose up -d
+    # - docker-compose build
+    # - docker-compose up -d
     - docker-compose images
     - docker-compose ps
     - docker-compose logs
